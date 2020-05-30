@@ -17,7 +17,7 @@ weatherForm.addEventListener("submit", (e) => {
   locationBar.innerHTML = `<p>Loading: please wait.......</p>`;
   //console.log(location);
 
-  fetch(`http://localhost:9000/weather?address=${location}`)
+  fetch(`/weather?address=${location}`)
     .then((response) => response.json())
     .then((data) => {
       if (data.error) {
