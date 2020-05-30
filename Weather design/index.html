@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>weather</title>
+	<link rel='stylesheet' href='./style.css' />
+</head>
+<body class="main">
+	<header class="header">
+        <h1>Simple Weather</h1>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/">Weather</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/help">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class = "main-content">
+
+        <section class="top-main">
+            <article class="time">
+                <p>Time: 10:00 AM</p>
+                <p>Date: 26 Mar, 2020</p>
+            </article>
+            <article class="search">
+                <form action="" id="weather-form-1">
+                    <input id="search-text-1" type="text" placeholder="Location">
+                    <button>Search</button>
+                </form>
+            </article>
+        </section>
+    <div class="weather">
+        <section class="current">
+            <section class="current-weather">
+                <div class="current-location">
+                    <h2 id="place"><b>Dhaka</b></h2>
+                    <h2>Weather</h2>
+                </div>
+        
+                <div class="current_icon">
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png">
+                </div>
+        
+                <div class="current-condition">
+                    <div class="temp">25°C</div>
+                    <div class="summary">Humid</div>
+                </div>
+            </section>
+            <section class="current-info">
+                <ul class="info-list">
+                    <li>humidity: 87%</li>
+                    <li>wind: 3m/s</li>
+                    <li>cloud cover: 23%</li>
+                </ul>
+            </section>
+        </section>
+        
+        <section class="forecast">
+            <div class="forecast next-24-hours">
+                <div class="forecast-summary">
+                    <h2>Next 24 hours:</h2>
+                    <p>Clear throughout the day.</p>
+                </div>
+        
+                <div class="scroll">
+                    <div class="hourly">
+                        <div class="hour">
+                            <time>01:00</time>
+                            <div class="icon" title="Mostly Cloudy">
+                                <img src="http://openweathermap.org/img/wn/10d@2x.png">
+                            </div>
+                            <div class="temp">19°C</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    </div>
+	<footer class="footer">
+	<p>Created by <span style="color: darkorange;">Imam Hossain</span> @2020</p>
+    </footer>
+    
+    <script src="./app.js"></script>
+</body>
+</html>

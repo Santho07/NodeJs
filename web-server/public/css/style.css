@@ -21,7 +21,7 @@ footer{
 }
 header{
     margin-top: 16px;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
 }
 h1{
     font-size: 64px;
@@ -40,7 +40,18 @@ header a{
     font-size: 2rem;
     color: red;
 }
-nav{
+input {
+    border: 1px solid #cccccc; 
+    padding: 8px;
+}
+button {
+    cursor: pointer;
+    border: 1px solid #888888;
+    background: #888888;
+    color: white;
+    padding: 8px; 
+}
+p {
+    line-height: 1.7;
     font-weight: 400;
-    font-size: large;
 }

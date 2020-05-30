@@ -12,7 +12,11 @@ geocode(address, function geoCodeCallback(error, {latitude, longitude, location}
     if(error){
         return console.log(error)
     }
-    //console.log(data)
+    console.log({
+        latitude,
+        longitude,
+        location
+    })
 
     weather(latitude, longitude, function weatherCallback(error, {body: weatherData}){
         if(error){

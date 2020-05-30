@@ -23,9 +23,9 @@ let product = {
 // let price = product.price
 
 let {label: productLabel, price, rating = 5} = product
-console.log(productLabel, price, rating )
+//console.log(productLabel, price, rating )
 
-let transaction = (type, {label, price}) => {
-    console.log(type, label, price)
+let transaction = (type, {label, price, stock = 0} = {}) => {
+    console.log(type, label, price, stock)
 }
-//transaction('order', product)
+transaction('order', product)
