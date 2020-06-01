@@ -13,7 +13,6 @@ let timeSelector = document.querySelector(".time")
 let locationBar = document.querySelector(".location-bar")
 let main = document.querySelector(".weather")
 
-
 timeSelector.innerHTML = `<p>Time: ${time}</p>
                           <p>Date: ${date}</p>`
 main.innerHTML = ""
@@ -22,36 +21,32 @@ main.innerHTML = ""
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault()
 
-    let location = search.value
-    let place = location.split(",")[0]
-  
- locationBar.innerHTML = `<p>Loading: please wait.......</p>`
+  locationBar.innerHTML = `<p>Loading: please wait.......</p>`
 
   main.innerHTML = ""
-  fetch(`/weather?address=${location}`)
+  fetch(`/weather?address=${search.value}`)
     .then((response) => response.json())
     .then((data) => {
       if (data.error) {
-        
         timeSelector.innerHTML = `<p>Time: ${time}</p>
                          <p>Date: ${date}</p>`
         locationBar.innerHTML = `</p>Location: Location not found!</p>`
-        main.innerHTML =  `<div class="error">
+        main.innerHTML = `<div class="error">
                                   <p>${data.error}</p>
                                   <p> Please try again! </p> </div>`
       } else {
-          let { time, date, location, latitude, longitude } = data
-          let { condition, forecast, sunset, sunrise, current, daily } = data
-
+        let { time, date, location, latitude, longitude } = data
+        let { condition, forecast, sunset, sunrise, current, daily } = data
+        
+        let place = location.split(",")[0]
         let imageUrl = `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`
-          
-          
+
         timeSelector.innerHTML = `<p>Time: ${time}</p>
                          <p>Date: ${date}</p>`
         locationBar.innerHTML = `<p>Location: ${location}</p>
                         <p>Latitude: ${latitude}</p>
                         <p>Longitude: ${longitude}</p>`
-          
+
         let html = ` <section class="current">
                 <section class="current-weather">
                     <div class="current-location">

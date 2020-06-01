@@ -1,1 +1,1 @@
-: productLabel
+.catch(error => console.log(error))
