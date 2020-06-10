@@ -29,3 +29,19 @@ let transaction = (type, {label, price, stock = 0} = {}) => {
     console.log(type, label, price, stock)
 }
 transaction('order', product)
+
+
+/****Objeect property */
+
+const userName = [
+    {
+        name: 'Imam'
+    },
+    {
+        name: 'Shuvro'
+    },
+    {
+        name: 'Santho'
+    }
+]
+console.log({ name })
