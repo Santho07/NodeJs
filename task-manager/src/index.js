@@ -5,7 +5,7 @@ const userRouter = require('./routers/userRouter.js')
 
 const app = express()
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 // app.use((req, res, next) => {
 //   res.status(503).send('Site is under maintenance! Please check back later!')   //Maintenance mode only

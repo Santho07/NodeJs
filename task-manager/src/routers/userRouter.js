@@ -3,20 +3,19 @@ const User = require('../models/user')
 const authMiddleWare = require('../middleware/authMiddleWare.js')
 const multer = require('multer')
 const sharp = require('sharp')
-
+const { sendWelcomeEmail, sendCancelationEmail } = require('../email/account')
 const userRouter = express.Router()
-
 
 const upload = multer({
   limits: {
-    fileSize: 1000000
+    fileSize: 1000000,
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      return cb(new Error('Please upload a valid image file.'));
+      return cb(new Error('Please upload a valid image file.'))
     }
-    cb(undefined, true) //rejected, resolved 
-  }
+    cb(undefined, true) //rejected, resolved
+  },
 })
 
 userRouter
@@ -28,12 +27,13 @@ userRouter
   .get('/users/me', authMiddleWare, async (req, res) => {
     res.send(req.user)
   })
-  
+
   .post('/users', async (req, res) => {
     const user = new User(req.body)
 
     try {
       await user.save()
+      sendWelcomeEmail(user.name, user.email)
       const token = await user.generateAuthToken()
 
       res.status(201).send({ user, token })
@@ -45,11 +45,10 @@ userRouter
   .post('/users/login', async (req, res) => {
     try {
       const user = await User.findByCredentials(req.body.email, req.body.password)
-  
+
       const token = await user.generateAuthToken()
 
-      res.send({ user, token })  //user.toJSON() is called before JSON.stringify(user)
-
+      res.send({ user, token }) //user.toJSON() is called before JSON.stringify(user)
     } catch (error) {
       //console.log(error.message)
       res.status(400).send({ error: error.message })
@@ -75,7 +74,6 @@ userRouter
       await req.user.save()
 
       res.send('Logged Out of all sessions..')
-
     } catch (error) {
       res.status(500).send(error)
     }
@@ -103,28 +101,37 @@ userRouter
   .delete('/users/me', authMiddleWare, async (req, res) => {
     try {
       await req.user.remove() //User.findByIdAndDelete(req.user._id)
-     
-      res.send(req.user)  //we get the user from middleware
+      sendCancelationEmail(req.user.name, req.user.email)
+      res.send(req.user) //we get the user  middleware
     } catch (error) {
       res.status(500).send(error)
     }
   })
-  .post('/users/me/avatar', authMiddleWare, upload.single('avatar'), async (req, res) => {
-    //req.user.avatar = req.file.buffer
-    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
-    req.user.avatar = buffer
-    await req.user.save()
-    res.send('Avatar upload successful')
-
-  }, (error, req, res, next) => {
-      res.status(400).send({error: error.message})
-  })
+  
+  .post(
+    '/users/me/avatar',
+    authMiddleWare,
+    upload.single('avatar'),
+    async (req, res) => {
+      //req.user.avatar = req.file.buffer
+      const buffer = await sharp(req.file.buffer)
+        .resize({ width: 250, height: 250 })
+        .png()
+        .toBuffer()
+      req.user.avatar = buffer
+      await req.user.save()
+      res.send('Avatar upload successful')
+    },
+    (error, req, res, next) => {
+      res.status(400).send({ error: error.message })
+    }
+  )
   .delete('/users/me/avatar', authMiddleWare, async (req, res) => {
     req.user.avatar = undefined
     await req.user.save()
     res.send('Avatar Deletion Successful!')
   })
-  .get('/users/me/avatar',authMiddleWare, async(req, res) => {
+  .get('/users/me/avatar', authMiddleWare, async (req, res) => {
     try {
       const user = await User.findById(req.user._id)
 
@@ -133,7 +140,6 @@ userRouter
       }
       res.set('Content-Type', 'image/png')
       res.send(user.avatar)
-
     } catch (error) {
       res.status(404).send(error.message)
     }
