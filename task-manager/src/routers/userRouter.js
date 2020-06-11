@@ -1,9 +1,9 @@
 const express = require('express')
-const User = require('../models/user')
+const User = require('../models/user.js')
 const authMiddleWare = require('../middleware/authMiddleWare.js')
 const multer = require('multer')
 const sharp = require('sharp')
-const { sendWelcomeEmail, sendCancelationEmail } = require('../email/account')
+const { sendWelcomeEmail, sendCancelationEmail } = require('../email/account.js')
 const userRouter = express.Router()
 
 const upload = multer({
