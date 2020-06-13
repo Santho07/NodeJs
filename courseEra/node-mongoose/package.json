@@ -1,0 +1,15 @@
+{
+  "name": "node-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Imam Hossain Santho <imamhossain.nstu10@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.9.18"
+  }
+}
